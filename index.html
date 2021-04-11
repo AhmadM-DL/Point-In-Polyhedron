@@ -30,29 +30,21 @@
     <link rel="stylesheet" href="css\stylesheet.css"></head>
 <body>
     <h1>Point in Polyhedron Demostration</h1>
-    <input type="file" id="modelFile" name="model" enctype="multipart/form-data" />
-    <label id="modelFileLabel">Choose Model</label>
+    <button onclick="showhide(model);">Show/Hide Model</button>
+    <button onclick="toggleWireframe();">Wireframe</button>
+    <button onclick="showhide(inside_points);">Show/Hide Inside Points</button>
+    <button onclick="showhide(outside_points);">Show/Hide Outside Points</button>
+
     <span style="margin-left: 50px; margin-right: 50px;"></span>
-    <button onclick="showhide();">Show/Hide</button>
-    <button onclick="wireframe();">Wireframe</button>
-    <span style="margin-left: 50px; margin-right: 50px;"></span>
-    <input type="file" id="pointsFile" name="points" enctype="multipart/form-data" />
-    <label id="pointsFileLabel">Choose Points</label>
+
     <script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r127/three.min.js'></script>
     <script src='https://threejs.org/examples/js/controls/TrackballControls.js'></script>
     <script src='https://mamboleoo.be/learnThree/demos/OBJLoader.js'></script>
-    <script src="js\main.js"></script>
+    <script src="js/main.js"></script>
     <script>
-        var scene = getScene();
-        var camera = getCamera();
-        var light = getLight(scene);
-        var renderer = getRenderer();
-        var controls = getControls(camera, renderer);
-        var model;
         loadModel();
+        loadPoints();
         render();
-        document.getElementById('pointsFile').addEventListener('change', readPoints, false);
-        document.getElementById('modelFile').addEventListener('change', readModel, false);
     </script>
 </body>
 </html>

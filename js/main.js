@@ -22,7 +22,7 @@ function getScene() {
 function getCamera() {
   var aspectRatio = window.innerWidth / window.innerHeight;
   var camera = new THREE.PerspectiveCamera(75, aspectRatio, 0.1, 1000);
-  camera.position.set(x= 0.0938121251078376, y= -2.394539599542562, z= 0.3411419154271028);
+  camera.position.set(x = 0.0938121251078376, y = -2.394539599542562, z = 0.3411419154271028);
   return camera;
 }
 
@@ -81,7 +81,7 @@ function loadModel() {
   var loader = new THREE.OBJLoader();
   loader.load('./models/dragon.obj', function (object) {
     model = object;
-    scene.add(object);
+    scene.add(model);
   });
 }
 
@@ -97,112 +97,95 @@ function render() {
   controls.update();
 };
 
-function readPoints(evt) {
-  var files = evt.target.files;
-  var file = files[0];
-  var color = 0;
-  if (file.name.includes("inside")) {
-    color = 0x00ff00;
-  }
-  if (file.name.includes("outside")) {
-    color = 0xff0000;
-  }
-  if (file.name.includes("singular")) {
-    color = 0xFFD700;
-  }
-  var reader = new FileReader();
-  reader.onload = function (event) {
+function loadPoints() {
+  var inside_file = "./models/inside_points.obj"
+  var outside_file = "./models/outside_points.obj"
 
-    var text = reader.result;
-    var points_text = text.split("\n");
+  // Load inside points
+  fetch(inside_file)
+    .then(response => response.text())
+    .then(text => {
+      var color = 0x00ff00;
+      var points_text = text.split("\n");
+      var pointsGeometry = new THREE.BufferGeometry();
+      var point = new THREE.Vector3();
+      var size = lineCount(text)
+      const positions = new Float32Array(size * 3);
+      var counter = 0;
+      points_text.forEach(function (point_text) {
+        point.x = parseFloat(point_text.split(" ")[0]);
+        point.y = parseFloat(point_text.split(" ")[1]);
+        point.z = parseFloat(point_text.split(" ")[2])
+        point.toArray(positions, counter * 3)
+        counter++;
+      });
+      pointsGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      var pointsMaterial = new THREE.PointsMaterial({ color: color, size: 0.003 });
+      var points = new THREE.Points(pointsGeometry, pointsMaterial);
+      inside_points = points;
+      showhide(inside_points);
+      scene.add(points);
+    })
 
-    var pointsGeometry = new THREE.BufferGeometry();
-    var point = new THREE.Vector3();
-    var size = lineCount(text)
-    const positions = new Float32Array( size * 3);
-    var counter = 0;
-    points_text.forEach(function (point_text) {
-      point.x = parseFloat(point_text.split(" ")[0]);
-      point.y = parseFloat(point_text.split(" ")[1]);
-      point.z = parseFloat(point_text.split(" ")[2])
-      point.toArray(positions, counter*3)
-      counter++;
-    });
+  // Load outside points
+  fetch(outside_file)
+    .then(response => response.text())
+    .then(text => {
+      var color = 0xff0000;
+      var points_text = text.split("\n");
+      var pointsGeometry = new THREE.BufferGeometry();
+      var point = new THREE.Vector3();
+      var size = lineCount(text)
+      const positions = new Float32Array(size * 3);
+      var counter = 0;
+      points_text.forEach(function (point_text) {
+        point.x = parseFloat(point_text.split(" ")[0]);
+        point.y = parseFloat(point_text.split(" ")[1]);
+        point.z = parseFloat(point_text.split(" ")[2])
+        point.toArray(positions, counter * 3)
+        counter++;
+      });
+      pointsGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      var pointsMaterial = new THREE.PointsMaterial({ color: color, size: 0.003 });
+      var points = new THREE.Points(pointsGeometry, pointsMaterial);
+      outside_points = points;
+      showhide(outside_points);
+      scene.add(points);
+    })
 
-    pointsGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-    var pointsMaterial = new THREE.PointsMaterial({ color: color, size: 0.003 });
-
-    var points = new THREE.Points(pointsGeometry, pointsMaterial);
-
-    scene.add(points);
-  };
-  reader.readAsText(file);
 }
 
-function lineCount( text ) {
+function lineCount(text) {
   var nLines = 0;
-  for( var i = 0, n = text.length;  i < n;  ++i ) {
-      if( text[i] === '\n' ) {
-          ++nLines;
-      }
+  for (var i = 0, n = text.length; i < n; ++i) {
+    if (text[i] === '\n') {
+      ++nLines;
+    }
   }
   return nLines;
 }
 
-function readModel(evt) {
-  var files = evt.target.files;
-  var file = files[0];
-
-  var reader = new FileReader();
-  reader.onload = function (event) {
-    //console.log(event.target.result);
-    var text = reader.result;
-    var loader = new THREE.OBJLoader();
-    loader.parse(text, function (object) {
-
-      object.traverse(function (child) {
-
-        if (child.isMesh) {
-          child.material.alphaTest = 0.5;
-          child.material.transparent = true;
-          child.material.opacity = 0.1;
-          var wireframeGeomtry = new THREE.WireframeGeometry(child.geometry);
-          var wireframeMaterial = new THREE.LineBasicMaterial({ color: 0x000000 });
-          var wireframe = new THREE.LineSegments(wireframeGeomtry, wireframeMaterial);
-          child.add(wireframe);
-
-        }
-
-      });
-
-      //model = object;
-      scene.add(object);
-    });
-  };
-  reader.readAsText(file);
+function showhide(obj) {
+  obj.visible = !obj.visible;
 }
 
 
-function showhide() {
-  model.visible = !model.visible;
-}
-
-function wireframe() {
-
+function toggleWireframe() {
   model.traverse(function (child) {
-
     if (child.isMesh) {
-      child.material.alphaTest = 0.5;
-      child.material.transparent = true;
-      child.material.opacity = 0.1;
-      var wireframeGeomtry = new THREE.WireframeGeometry(child.geometry);
-      var wireframeMaterial = new THREE.LineBasicMaterial({ color: 0x000000 });
-      var wireframe = new THREE.LineSegments(wireframeGeomtry, wireframeMaterial);
-      child.add(wireframe);
-
+      child.material.transparent = !child.material.transparent;
+      child.material.wireframe = !child.material.wireframe;
     }
-
   });
-
 }
+
+
+var scene = getScene();
+var camera = getCamera();
+var light = getLight(scene);
+var renderer = getRenderer();
+var controls = getControls(camera, renderer);
+var model;
+var wireframe;
+var inside_points;
+var outside_points;
