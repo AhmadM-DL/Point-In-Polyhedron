@@ -1,0 +1,20 @@
+﻿  loadview.cpp
+c:\users\amm90\desktop\eece696project\eece696project\obj.h(19): warning C4018: '<': signed/unsigned mismatch
+c:\users\amm90\desktop\eece696project\eece696project\obj.h(22): warning C4018: '<': signed/unsigned mismatch
+c:\users\amm90\desktop\eece696project\eece696project\obj.h(32): warning C4018: '<': signed/unsigned mismatch
+  misc.cc
+  obj.cc
+c:\users\amm90\desktop\eece696project\eece696project\obj.h(19): warning C4018: '<': signed/unsigned mismatch
+c:\users\amm90\desktop\eece696project\eece696project\obj.h(22): warning C4018: '<': signed/unsigned mismatch
+c:\users\amm90\desktop\eece696project\eece696project\obj.h(32): warning C4018: '<': signed/unsigned mismatch
+obj.cc(89): warning C4018: '<': signed/unsigned mismatch
+obj.obj : error LNK2001: unresolved external symbol __imp__glNewList@8
+obj.obj : error LNK2001: unresolved external symbol __imp__glVertex3f@12
+obj.obj : error LNK2001: unresolved external symbol __imp__glEnd@0
+obj.obj : error LNK2001: unresolved external symbol __imp__glCallList@4
+obj.obj : error LNK2001: unresolved external symbol __imp__glGenLists@4
+obj.obj : error LNK2001: unresolved external symbol __imp__glNormal3f@12
+obj.obj : error LNK2001: unresolved external symbol __imp__glEndList@0
+obj.obj : error LNK2001: unresolved external symbol __imp__glBegin@4
+obj.obj : error LNK2001: unresolved external symbol __imp__glDeleteLists@8
+C:\Users\amm90\Desktop\EECE696Project\Release\EECE696Project.exe : fatal error LNK1120: 9 unresolved externals
