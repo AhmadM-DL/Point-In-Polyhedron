@@ -1,5 +1,3 @@
-Hello Dr.,
-
 Steps To Run:
 
 - Open Solution in Visual studio
@@ -11,4 +9,4 @@ Steps To Run:
 	- Goto point_in_polyhedron0.cu file
 	- change first line to #if 1
 	- Ctrl + F5
-- ¯\_(?)_/¯
+- ï¿½\_(?)_/ï¿½
