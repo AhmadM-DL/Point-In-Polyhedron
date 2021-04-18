@@ -6,7 +6,7 @@ Point in polyhedron is an important problem that have a number of applications i
 
 With the rise of GPGPU (General Purpose Graphics Processing Unit) many geometric algorithms have been redesigned and implemented to work on GPUs in order to achieve a better performance. In this repo. I combine and reimplement 2 research papers trying to parallelize the procedure on GPU using CUDA.
 
-A three.js demo is available [https://ahmadm-dl.github.io/Point-In-Polyhedron/](here)
+[A three.js demo is available here](https://ahmadm-dl.github.io/Point-In-Polyhedron/)
 
 ---
 
@@ -32,7 +32,7 @@ The proposed algorithm for point in polyhedron test can be divided into three st
  2. Preprocessing step
  3. Point in polyhedron test step
 
-For further details check [docs\Project Report.pdf](report).
+For further details check [report](docs\Project Report.pdf).
 
 ### References
 
