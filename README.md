@@ -32,7 +32,7 @@ The proposed algorithm for point in polyhedron test can be divided into three st
  2. Preprocessing step
  3. Point in polyhedron test step
 
-For further details check [report](docs\Project Report.pdf).
+For further details check [report](docs/Project Report.pdf).
 
 ### References
 
