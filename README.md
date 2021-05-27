@@ -1,12 +1,13 @@
 ![](docs/record.gif)
 
 # Point-In-Polyhedron
+## [DEMO](https://ahmadm-dl.github.io/Point-In-Polyhedron/)
+
 
 Point in polyhedron is an important problem that have a number of applications in different domains such as computer aided design (CAD), computer graphics, geographic information systems (GIS), etc. [1]
 
 With the rise of GPGPU (General Purpose Graphics Processing Unit) many geometric algorithms have been redesigned and implemented to work on GPUs in order to achieve a better performance. In this repo. I combine and reimplement 2 research papers trying to parallelize the procedure on GPU using CUDA.
 
-[A three.js demo is available here](https://ahmadm-dl.github.io/Point-In-Polyhedron/)
 
 ---
 
